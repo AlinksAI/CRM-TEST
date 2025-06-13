@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Home - CRM App{% endblock %}
+
+{% block content %}
+    <h1>
+        {% if current_user.is_authenticated %}
+            Welcome to the CRM, {{ current_user.username }}!
+        {% else %}
+            Welcome to the CRM Application!
+        {% endif %}
+    </h1>
+    <p>This is the homepage.</p>
+    {% if not current_user.is_authenticated %}
+    <p>Please <a href="{{ url_for('auth.login') }}">login</a> or <a href="{{ url_for('auth.register') }}">register</a> to continue.</p>
+    {% endif %}
+{% endblock %}

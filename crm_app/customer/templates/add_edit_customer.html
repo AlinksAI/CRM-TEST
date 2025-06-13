@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - CRM App{% endblock %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="POST" action=""> {# Action URL is dynamic based on add/edit route #}
+        {{ form.hidden_tag() }}  <!-- CSRF token -->
+
+        <div class="form-group">
+            {{ form.first_name.label }}
+            {{ form.first_name(class="form-control", size=32) }}
+            {% if form.first_name.errors %}
+                <ul class="form-error">{% for error in form.first_name.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.last_name.label }}
+            {{ form.last_name(class="form-control", size=32) }}
+            {% if form.last_name.errors %}
+                <ul class="form-error">{% for error in form.last_name.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control", size=32) }}
+            {% if form.email.errors %}
+                <ul class="form-error">{% for error in form.email.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.phone.label }}
+            {{ form.phone(class="form-control", size=32) }}
+            {% if form.phone.errors %}
+                <ul class="form-error">{% for error in form.phone.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.company.label }}
+            {{ form.company(class="form-control", size=32) }}
+            {% if form.company.errors %}
+                <ul class="form-error">{% for error in form.company.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.notes.label }}
+            {{ form.notes(class="form-control", rows=5) }}
+            {% if form.notes.errors %}
+                <ul class="form-error">{% for error in form.notes.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }} {# Added btn-primary for specific styling #}
+            <a href="{{ url_for('customer.list_customers') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+    {# Removed inline style block #}
+{% endblock %}

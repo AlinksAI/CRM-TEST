@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - CRM App{% endblock %}
+
+{% block content %}
+    <h2>{{ customer.first_name }} {{ customer.last_name }}</h2>
+
+    <div class="customer-details">
+        <p><strong>Email:</strong> {{ customer.email if customer.email else 'N/A' }}</p>
+        <p><strong>Phone:</strong> {{ customer.phone if customer.phone else 'N/A' }}</p>
+        <p><strong>Company:</strong> {{ customer.company if customer.company else 'N/A' }}</p>
+        <p><strong>Date Created:</strong> {{ customer.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <div>
+            <strong>Notes:</strong>
+            <pre>{{ customer.notes if customer.notes else 'No notes.' }}</pre>
+        </div>
+    </div>
+
+    <div class="actions mt-3"> {# Added mt-3 for margin top from utility classes #}
+        <a href="{{ url_for('customer.edit_customer', customer_id=customer.id) }}" class="btn btn-primary">Edit Customer</a> {# Changed to btn-primary #}
+        <form method="POST" action="{{ url_for('customer.delete_customer', customer_id=customer.id) }}" style="display:inline; margin-left: 10px;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="submit" value="Delete Customer" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this customer?');">
+        </form>
+        <a href="{{ url_for('customer.list_customers') }}" class="btn btn-secondary" style="margin-left: 10px;">Back to List</a>
+    </div>
+    {# Removed inline style block, styles are now global or in .customer-details if added to style.css #}
+{% endblock %}

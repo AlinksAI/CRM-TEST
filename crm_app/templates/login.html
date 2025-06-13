@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Login - CRM App{% endblock %}
+
+{% block content %}
+    <h2>Login</h2>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        {{ form.hidden_tag() }}  <!-- CSRF token -->
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(size=32) }}
+            {% if form.email.errors %}
+                <ul class="form-error">{% for error in form.email.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(size=32) }}
+            {% if form.password.errors %}
+                <ul class="form-error">{% for error in form.password.errors %}<li><span class="error-message">{{ error }}</span></li>{% endfor %}</ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.remember.label }}
+            {{ form.remember() }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+    <p>Need an account? <a href="{{ url_for('auth.register') }}">Register here</a></p>
+{% endblock %}
